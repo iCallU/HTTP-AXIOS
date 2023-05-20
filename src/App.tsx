@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import AddUser from './component/AddUser/AddUser';
 
 
 
@@ -8,8 +9,7 @@ function App() {
   let userData: any = [];
   const [users, setUsers] = useState([])
 
-  useEffect(() => {
-
+  const getAllUserAxios = () =>{
     axios.get('http://localhost:3001/users').then(
       (res) => {
 
@@ -23,6 +23,11 @@ function App() {
         console.log('err from axios', err.message)
     }
     )
+  }
+
+  useEffect(() => {
+
+    getAllUserAxios();
 
   },[])
 
@@ -40,6 +45,8 @@ const allUsersHTML = users.map((user: any, index) => {
     <div>
       <p>HTTP</p>
       {allUsersHTML}
+      <br></br>
+      <AddUser getAllUserAxios= {getAllUserAxios}/>
     </div>
   );
 }
